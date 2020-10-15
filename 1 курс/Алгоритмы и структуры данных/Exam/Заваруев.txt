@@ -1,0 +1,75 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+
+class Catalog:
+    def __init__(self, name, items):
+        self._name = name
+        self.__data = [item.split(';') if type(item) == str else item
+                       for item in items]
+        self.cur = 1
+    
+    @property
+    def name(self):
+        return self._name
+    
+    
+    @name.setter
+    def name(self, value):
+        self._name = value
+           
+        
+    def __str__(self):
+        return f'Каталог "{self._name}", {len(self.__data[0])} столбцов, {len(self.__data) - 1} элементов.'
+        
+        
+    def __add__(self, item):
+        self.__data.append(item.split(';'))
+        return Catalog(self._name, self.__data)
+    
+    
+    def __iter__(self):
+        return self
+    
+    
+    def __next__(self):
+        current_item = self.__data[self.cur]
+        new = self.cur + 1
+        if len(self.__data) > new:
+            self.cur = new
+        else:
+            raise StopIteration
+        return current_item
+    
+    
+    def write_cat(self, filename):
+        with open(filename, 'w', encoding='utf-8',) as f:
+            f.write('-'*212 + '\n')
+            f.write('|{:^4}|{:^75}|{:^30}|{:^8}|{:^8}|{:^80}|\n'.format(*self.__data[0]))
+            f.write('-'*212 + '\n')
+            for line in self.__data[1:]:
+                f.write('|{:^4}|{:^75}|{:^30}|{:^8}|{:^8}|{:^80}|\n'.format(*line))
+            f.write('-'*212 + '\n')
+    
+    
+    def only_last_left(self):
+        return [f'ID {item[0]} ({item[1]})' for item in filter(lambda x: x[4] == '1', self.__data)]    
+    
+####################################################################
+
+with open('Заваруев.txt', encoding="utf-8") as f:
+    lines = f.read().splitlines()
+    cat1 = Catalog('Товары', lines)
+
+print(cat1) # Каталог "Товары", 6 столбцов, 68 элементов.
+print(cat1.name) # 'Товары'
+cat1.name = 'Товары 2020'
+print(cat1.name) # 'Товары 2020'
+print(next(cat1)) # ['17', 'Автобус (2288 F-1)', 'Машинки', '41.00', '29', '']
+print(next(cat1)) # ['63', 'Баранчик Шон 002 (25452-4)', 'Мягкие игрушки', '122.00', '3', '']
+print(next(cat1)) # ['64', 'Бассеин 57470 INTEX', 'Главная/Бассейны', '539.00', '3', 'Данный товар отправляем со склада с Одессы!']
+cat1 += '960;Бассейн Синий Кит;Бассейны;1200.00;1;Черный с синим'
+print(cat1) # Каталог "Товары", 6 столбцов, 69 элементов.
+cat1.write_cat('cat1.txt') # Каталог записывается в файл cat1.txt
+print(cat1.only_last_left()) # Выводится список позиций, у которых остался только один экземпляр
+
