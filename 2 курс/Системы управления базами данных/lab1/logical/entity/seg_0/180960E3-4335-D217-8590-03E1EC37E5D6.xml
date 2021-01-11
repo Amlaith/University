@@ -1,0 +1,72 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="180960E3-4335-D217-8590-03E1EC37E5D6" name="BOOK">
+<createdBy>user</createdBy>
+<createdTime>2020-11-23 17:43:17 UTC</createdTime>
+<ownerDesignName>lab1</ownerDesignName>
+<engineerTo>
+<item key="91C68472-975E-D5EE-54FC-65FA97C292C7" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="BOOK_ID" id="D83842BB-9269-45E2-BF91-28C352BE0974">
+<createdBy>user</createdBy>
+<createdTime>2020-11-23 17:46:13 UTC</createdTime>
+<ownerDesignName>lab1</ownerDesignName>
+<engineerTo>
+<item key="91C68472-975E-D5EE-54FC-65FA97C292C7" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="TITLE" id="9FFDE202-2695-2C2E-4FFC-6228F5ADB636">
+<createdBy>user</createdBy>
+<createdTime>2020-11-23 17:48:37 UTC</createdTime>
+<ownerDesignName>lab1</ownerDesignName>
+<engineerTo>
+<item key="91C68472-975E-D5EE-54FC-65FA97C292C7" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="PUBLISHER_ID" id="589989CB-97D3-CC41-BD25-743C41A83709">
+<createdBy>user</createdBy>
+<createdTime>2020-11-23 18:09:38 UTC</createdTime>
+<generatorID>BD74D0DC-B919-D42D-397D-DE04A1BDE5A2</generatorID>
+<ownerDesignName>lab1</ownerDesignName>
+<engineerTo>
+<item key="91C68472-975E-D5EE-54FC-65FA97C292C7" value="true"/>
+</engineerTo>
+<referedAttribute>9A0B1584-A5D6-2D1D-7E73-3029AF24F9BF</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="9E50FCB3-54B7-691D-12BD-2E9B2EDC417F" name="BOOK PK">
+<createdBy>user</createdBy>
+<createdTime>2020-11-23 17:48:31 UTC</createdTime>
+<ownerDesignName>lab1</ownerDesignName>
+<engineerTo>
+<item key="91C68472-975E-D5EE-54FC-65FA97C292C7" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>D83842BB-9269-45E2-BF91-28C352BE0974</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>
