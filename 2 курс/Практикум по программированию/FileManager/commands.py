@@ -58,7 +58,6 @@ def read_file(cur_path, name):
     try:
         with open(full_path, "r") as f:
             print(f.read())
-
     except FileNotFoundError:
         print(f'File does not exist: {full_path}')
 

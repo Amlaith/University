@@ -34,8 +34,15 @@ class FileManager(cmd.Cmd):
         'Create a new file: crf myFile'
         self.call_command(create_file, name)
 
+    def do_rmf(self, name):
+        'Remove a file: rmf myFile'
+        self.call_command(remove_file, name)
+
     def do_wtf(self, arg):
         self.call_command(write_to_file, arg)
+
+    def do_rf(self, arg):
+        self.call_command(read_file, arg)
 
     def do_exit(self, arg):
         'Exit file manager: exit'
