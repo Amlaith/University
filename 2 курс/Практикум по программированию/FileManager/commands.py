@@ -38,15 +38,18 @@ def create_file(cur_path, name):
         open(full_path, "x")
     except FileExistsError:
         print(f'File exists: {full_path}')
+    except FileNotFoundError:
+        dir_path = "\\".join(full_path.split("\\")[:-1])
+        print(f'No such directory: {dir_path}')
     else:
         print(f'Successfully created the file {full_path}')
 
 
-def write_to_file(cur_path, name, text, mode='w'):
+def write_to_file(cur_path, name, mode='w'):
     full_path = cur_path + '\\' + name
     try:
         with open(full_path, mode) as f:
-            f.write(text)
+            f.write(input('Enter a text to write:\n'))
     except FileNotFoundError:
         print(f'File does not exist: {full_path}')
     else:

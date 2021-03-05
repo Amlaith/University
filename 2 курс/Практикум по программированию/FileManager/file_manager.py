@@ -39,9 +39,11 @@ class FileManager(cmd.Cmd):
         self.call_command(remove_file, name)
 
     def do_wtf(self, arg):
+        'Prompt for a text to write to file: wtf myFile'
         self.call_command(write_to_file, arg)
 
-    def do_rf(self, arg):
+    def do_rdf(self, arg):
+        'Read a file: rdf myFile'
         self.call_command(read_file, arg)
 
     def do_exit(self, arg):
