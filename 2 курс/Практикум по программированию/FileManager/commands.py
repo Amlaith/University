@@ -1,5 +1,6 @@
 import os
 import shutil
+from sys import stdin
 
 
 def create_dir(cur_path, name):
@@ -28,7 +29,7 @@ def change_dir(destination):
     except Exception as e:
         print(f'Unable to change directory: {e}')
     else:
-        print(f'Current working direction: {os.getcwd()}')
+        print(f'Current working directory: {os.getcwd()}')
     return os.getcwd()
 
 
@@ -49,7 +50,10 @@ def write_to_file(cur_path, name, mode='w'):
     full_path = cur_path + '\\' + name
     try:
         with open(full_path, mode) as f:
-            f.write(input('Enter a text to write:\n'))
+            print('Enter a text to write. Press Ctrl+z when done:')
+            # f.write(stdin.readlines())
+            msg = stdin.readlines()
+            print(msg)
     except FileNotFoundError:
         print(f'File does not exist: {full_path}')
     else:
@@ -71,6 +75,8 @@ def remove_file(cur_path, name):
         os.remove(full_path)
     except FileNotFoundError:
         print(f'File does not exist: {full_path}')
+    except PermissionError as e:
+        print(f'Unable to remove: {full_path}')
     else:
         print(f'Successfully removed the file {full_path}')
 
@@ -81,7 +87,7 @@ def copy_file(cur_path, name, destination):
     try:
         shutil.copyfile(source_path, destination_path)
     except IOError as e:
-        print('Unable to copy file.', e)
+        print('Unable to copy.', e)
     else:
         print(f'Successfully copied the file {source_path} to {destination_path}')
 
@@ -92,7 +98,7 @@ def move_file(cur_path, name, destination):
     try:
         shutil.copyfile(source_path, destination_path)
     except IOError as e:
-        print('Unable to copy file.', e)
+        print('Unable to move.', e)
     else:
         print(f'Successfully copied the file {source_path} to {destination_path}')
 

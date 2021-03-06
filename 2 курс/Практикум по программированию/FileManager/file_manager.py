@@ -42,6 +42,9 @@ class FileManager(cmd.Cmd):
         'Prompt for a text to write to file: wtf myFile'
         self.call_command(write_to_file, arg)
 
+    def do_EOF(self, arg):
+        return True
+
     def do_rdf(self, arg):
         'Read a file: rdf myFile'
         self.call_command(read_file, arg)
