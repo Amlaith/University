@@ -1,4 +1,5 @@
 import cmd
+from pathfinder import Pathfinder
 import os
 from commands import *
 
@@ -6,15 +7,15 @@ from commands import *
 class FileManager(cmd.Cmd):
     def __init__(self):
         super().__init__()
-        self.path = os.getcwd()
+        self.pathfinder = Pathfinder(os.getcwd())
 
-    def call_command(self, command, arg = ''):
-        command(self.path, *arg.split())
+    def call_command(self, command, *args):
+        command(*map(self.pathfinder.make_path, *args))
 
     intro = 'Welcome to Fima file manager.   Type help or ? to list commands.\n'
     prompt = '(Fima) '
 
-    def do_lsd(self, arg):
+    def do_lsd(self, destination):
         'List of all files and directories in current direction: lsd'
         self.call_command(list_dir)
 
@@ -37,13 +38,6 @@ class FileManager(cmd.Cmd):
     def do_rmf(self, name):
         'Remove a file: rmf myFile'
         self.call_command(remove_file, name)
-
-    def do_wtf(self, arg):
-        'Prompt for a text to write to file: wtf myFile'
-        self.call_command(write_to_file, arg)
-
-    def do_EOF(self, arg):
-        return True
 
     def do_rdf(self, arg):
         'Read a file: rdf myFile'

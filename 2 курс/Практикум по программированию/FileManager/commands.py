@@ -1,119 +1,92 @@
 import os
 import shutil
-from sys import stdin
 
 
-def create_dir(cur_path, name):
-    full_path = cur_path + '\\' + name
+def create_dir(path):
     try:
-        os.mkdir(full_path)
+        os.mkdir(path)
     except OSError:
-        print(f'Creation of the directory {full_path} failed')
+        return f'Creation of the directory {path} failed'
     else:
-        print(f'Successfully created the directory {full_path}')
+        return f'Successfully created the directory {path}'
 
 
-def remove_dir(cur_path, name):
-    full_path = cur_path + '\\' + name
+def remove_dir(path):
     try:
-        os.rmdir(full_path)
+        os.rmdir(path)
     except OSError:
-        print(f'Deletion of the directory {full_path} failed')
+        return f'Deletion of the directory {path} failed'
     else:
-        print(f'Successfully deleted the directory {full_path}')
+        return f'Successfully deleted the directory {path}'
 
 
 def change_dir(destination):
     try:
         os.chdir(destination)
     except Exception as e:
-        print(f'Unable to change directory: {e}')
+        return f'Unable to change directory: {e}'
     else:
-        print(f'Current working directory: {os.getcwd()}')
-    return os.getcwd()
+        return f'Current working directory: {os.getcwd()}'
+    # return os.getcwd()
 
 
-def create_file(cur_path, name):
-    full_path = cur_path + '\\' + name
+def create_file(path):
     try:
-        open(full_path, "x")
+        open(path, "x")
     except FileExistsError:
-        print(f'File exists: {full_path}')
+        return f'File exists: {path}'
     except FileNotFoundError:
-        dir_path = "\\".join(full_path.split("\\")[:-1])
-        print(f'No such directory: {dir_path}')
+        dir_path = "\\".join(path.split("\\")[:-1])
+        return f'No such directory: {dir_path}'
     else:
-        print(f'Successfully created the file {full_path}')
+        return f'Successfully created the file {path}'
 
 
-def write_to_file(cur_path, name, mode='w'):
-    full_path = cur_path + '\\' + name
+def read_file(path):
     try:
-        with open(full_path, mode) as f:
-            print('Enter a text to write. Press Ctrl+z when done:')
-            # f.write(stdin.readlines())
-            msg = stdin.readlines()
-            print(msg)
+        with open(path, "r") as f:
+            return f.read()
     except FileNotFoundError:
-        print(f'File does not exist: {full_path}')
-    else:
-        print(f'Successfully written to the file {full_path}')
+        return f'File does not exist: {path}'
 
 
-def read_file(cur_path, name):
-    full_path = cur_path + '\\' + name
+def remove_file(path):
     try:
-        with open(full_path, "r") as f:
-            print(f.read())
+        os.remove(path)
     except FileNotFoundError:
-        print(f'File does not exist: {full_path}')
-
-
-def remove_file(cur_path, name):
-    full_path = cur_path + '\\' + name
-    try:
-        os.remove(full_path)
-    except FileNotFoundError:
-        print(f'File does not exist: {full_path}')
+        return f'File does not exist: {path}'
     except PermissionError as e:
-        print(f'Unable to remove: {full_path}')
+        return f'Unable to remove:\n{e}'
     else:
-        print(f'Successfully removed the file {full_path}')
+        return f'Successfully removed the file {path}'
 
 
-def copy_file(cur_path, name, destination):
-    source_path = cur_path + '\\' + name
-    destination_path = destination + '\\' + name
+def copy_file(source_path, destination_path):
     try:
         shutil.copyfile(source_path, destination_path)
     except IOError as e:
-        print('Unable to copy.', e)
+        return f'Unable to copy:\n{e}'
     else:
-        print(f'Successfully copied the file {source_path} to {destination_path}')
+        return f'Successfully copied the file {source_path} to {destination_path}'
 
 
-def move_file(cur_path, name, destination):
-    source_path = cur_path + '\\' + name
-    destination_path = destination + '\\' + name
+def move_file(source_path, destination_path):
     try:
         shutil.copyfile(source_path, destination_path)
     except IOError as e:
-        print('Unable to move.', e)
+        return f'Unable to move:\n{e}'
     else:
-        print(f'Successfully copied the file {source_path} to {destination_path}')
+        return f'Successfully copied the file {source_path} to {destination_path}'
 
 
-def rename_file(cur_path, old_name, new_name):
-    source_path = cur_path + '\\' + old_name
-    destination_path = cur_path + '\\' + new_name
+def rename_file(source_path, destination_path):
     try:
         os.rename(source_path, destination_path)
     except Exception as e:
-        print('Unable to rename file.', e)
+        return f'Unable to rename file\n{e}'
     else:
-        print(f'Successfully renamed the file {source_path} to {destination_path}')
+        return f'Successfully renamed the file {source_path} to {destination_path}'
 
 
-def list_dir(cur_path):
-    for item in os.listdir(cur_path):
-        print(item)
+def list_dir(path):
+    return os.listdir(path)
